@@ -12,6 +12,10 @@
   无需安装笨重的飞书全功能电脑端，摆脱在浏览器几十个杂乱标签页中频繁寻找知识库的困扰，给知识创作与沉淀一个纯粹的桌面视界。
 </p>
 
+<p align="center">
+  <img src="assets/preview.png" alt="飞书知识库客户端运行预览" width="850">
+</p>
+
 ---
 
 ## 💡 为什么需要独立客户端？
@@ -92,6 +96,8 @@ pnpm run package
 
 ```text
 feishu-wiki-desktop/
+├── assets/             # 项目截图与预览资源
+│   └── preview.png
 ├── src/                # 客户端核心源码 (TypeScript)
 │   ├── main.ts         # Electron 主进程 (窗口管理、生命周期、Bounds 与 IPC 通信)
 │   ├── renderer.ts     # 渲染层逻辑 (多标签控制、导航交互与剪贴板智能感知)
