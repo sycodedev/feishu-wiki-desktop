@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>飞书知识库</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header: Row 1 - Compact Window Title & Tabs -->
+  <header class="header-row header-top">
+    <div class="brand drag-area">
+      <span class="brand-icon" aria-hidden="true">
+        <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 2.5h7.5a2 2 0 0 1 2 2v9a.5.5 0 0 1-.75.43L9.5 12.5H3a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1z"/>
+          <path d="M5.5 5.5h4M5.5 8h3"/>
+        </svg>
+      </span>
+      <span class="brand-text">飞书知识库</span>
+      <span class="brand-badge">桌面端</span>
+    </div>
+    <div class="tabs-scroll-wrapper no-drag">
+      <div id="tabs" role="tablist" aria-label="已打开的页面"></div>
+      <button id="new-tab" class="icon-btn tab-add" title="新标签页 (Ctrl+T)" aria-label="新标签页">
+        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M8 2.5v11M2.5 8h11"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Reserved space for Windows TitleBar Overlay Buttons (Min / Max / Close) -->
+    <div class="win-controls-spacer drag-area"></div>
+  </header>
+
+  <!-- Header: Row 2 - Navigation Toolbar & Address Bar -->
+  <nav class="header-row toolbar" aria-label="页面导航">
+    <div class="nav-controls">
+      <button id="back" class="icon-btn" title="后退" aria-label="后退">
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 3.5L5.5 8 10 12.5"/>
+        </svg>
+      </button>
+      <button id="forward" class="icon-btn" title="前进" aria-label="前进">
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 3.5l4.5 4.5L6 12.5"/>
+        </svg>
+      </button>
+      <button id="reload" class="icon-btn" title="重新载入 (Ctrl+R)" aria-label="重新载入">
+        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M13.5 8A5.5 5.5 0 1 1 11.8 4.1L14 2v4.5H9.5"/>
+        </svg>
+      </button>
+      <button id="home" class="icon-btn" title="飞书知识库主页" aria-label="飞书知识库主页">
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2.5 7L8 2.5 13.5 7v6.5a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1V7z"/>
+          <path d="M6 14.5v-5h4v5"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Smart Address Bar -->
+    <form id="address-form" class="address-box">
+      <span class="address-icon" aria-hidden="true">
+        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7">
+          <circle cx="7" cy="7" r="4.5"/>
+          <path d="M10.5 10.5L14 14"/>
+        </svg>
+      </span>
+      <input id="address" type="text" spellcheck="false" autocomplete="off" aria-label="飞书知识库或云文档链接" placeholder="输入或粘贴飞书知识库、云文档链接，按回车直达">
+      <button class="address-go" type="submit">直达</button>
+    </form>
+
+    <!-- Toolbar Right Actions -->
+    <div class="toolbar-actions">
+      <button id="copy-link-btn" class="text-btn" title="复制当前页面链接">
+        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <path d="M6.5 9.5a3 3 0 0 0 4.2 0l2-2a3 3 0 0 0-4.2-4.2l-1 1"/>
+          <path d="M9.5 6.5a3 3 0 0 0-4.2 0l-2 2a3 3 0 0 0 4.2 4.2l1-1"/>
+        </svg>
+        <span>复制链接</span>
+      </button>
+      <button id="open-browser" class="text-btn" title="在系统默认浏览器中打开">
+        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 8.5v4a1 1 0 0 1-1 1H3.5a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1h4"/>
+          <path d="M9.5 2.5H13.5v4M7 9l6-6.5"/>
+        </svg>
+        <span>浏览器</span>
+      </button>
+      <div class="action-divider"></div>
+      <button id="logout" class="text-btn logout-btn" title="安全退出并清除当前电脑的登录会话">
+        <span class="user-avatar-dot"></span>
+        <span>退出账号</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Loading Micro Progress Bar (Phase 2 Enhancement) -->
+  <div id="loading-bar" class="loading-bar" hidden></div>
+
+  <!-- Notification & Offline Banners -->
+  <div id="notice" class="notice-banner" role="status" hidden></div>
+  <div id="offline" class="offline-banner" role="alert" hidden>
+    <span class="offline-icon">⚠️</span>
+    <span>当前网络已断开，修改暂无法同步至云端。请保持窗口开启，网络恢复后将自动同步。</span>
+  </div>
+
+  <!-- Main Viewport -->
+  <main id="viewport">
+    <!-- Welcome Launchpad View -->
+    <section id="welcome" class="welcome-container">
+      <div class="welcome-content">
+        <!-- Hero section -->
+        <div class="hero-block">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            <span>飞书知识库独立工作空间</span>
+          </div>
+          <h1 class="hero-title">给知识，一个独立的窗口<span class="accent-dot">。</span></h1>
+          <p class="hero-subtitle">无需安装飞书电脑客户端，直接进入你的知识库。<br>在线内容与云端保持一致，阅读编辑少一点打扰。</p>
+
+          <div class="hero-cta-group">
+            <button id="enter-wiki" class="primary-btn">
+              <span>进入飞书知识库</span>
+              <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3.5 8h9M9 4.5l3.5 3.5L9 11.5"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Smart Clipboard Detector Card (Phase 2 Enhancement) -->
+          <div id="clipboard-card" class="clipboard-card" hidden>
+            <div class="clipboard-header">
+              <span class="clipboard-icon">📋</span>
+              <span class="clipboard-title">检测到剪贴板中的飞书知识库链接</span>
+            </div>
+            <div id="clipboard-url" class="clipboard-url"></div>
+            <div class="clipboard-actions">
+              <button id="clipboard-open" class="clipboard-open-btn">立即打开此文档 ↗</button>
+              <button id="clipboard-dismiss" class="clipboard-dismiss-btn">忽略</button>
+            </div>
+          </div>
+
+          <p class="entry-subhint">或直接在上方地址栏粘贴已有知识库或文档链接，按回车即可直达。</p>
+
+          <div class="features-pill-row">
+            <span class="pill-item"><i class="check-icon">✓</i> 无需飞书客户端</span>
+            <span class="pill-divider">•</span>
+            <span class="pill-item"><i class="check-icon">✓</i> 无需额外注册</span>
+            <span class="pill-divider">•</span>
+            <span class="pill-item"><i class="check-icon">✓</i> 在线内容一致性</span>
+          </div>
+        </div>
+
+        <!-- Launchpad Side Cards -->
+        <aside class="launchpad-aside">
+          <!-- Guide Steps Card -->
+          <div class="info-card guide-card">
+            <div class="card-tag">快速上手指南</div>
+            <h3 class="card-title">还是熟悉的飞书知识库</h3>
+            <ol class="steps-flow">
+              <li>
+                <span class="step-num">01</span>
+                <div class="step-desc">
+                  <strong>在官方页面登录</strong>
+                  <p>支持官方提供的手机号、邮箱验证码或手机飞书扫码方式。</p>
+                </div>
+              </li>
+              <li>
+                <span class="step-num">02</span>
+                <div class="step-desc">
+                  <strong>直接访问原有知识库</strong>
+                  <p>内容与权限完全沿用飞书，无需任何数据迁移或二次授权。</p>
+                </div>
+              </li>
+              <li>
+                <span class="step-num">03</span>
+                <div class="step-desc">
+                  <strong>多标签页保持心流</strong>
+                  <p>Ctrl+T 新建标签，Ctrl+W 关闭，Ctrl+L 快速直达。</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Security & Shortcuts Grid -->
+          <div class="aside-bottom-grid">
+            <div class="info-card mini-card">
+              <div class="card-header-icon">🛡️</div>
+              <h4>官方直连保障</h4>
+              <p>活动账号会话独立保存在本机专用沙箱中，无任何第三方中转，正文不上传运营方服务器。</p>
+            </div>
+            <div class="info-card mini-card">
+              <div class="card-header-icon">⌨️</div>
+              <h4>常用快捷键</h4>
+              <div class="shortcut-list">
+                <div><span>Ctrl+T</span> 新建标签</div>
+                <div><span>Ctrl+W</span> 关闭标签</div>
+                <div><span>Ctrl+L</span> 聚焦地址栏</div>
+                <div><span>Ctrl+R</span> 刷新页面</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Refined Page Error View -->
+    <section id="page-error" class="error-container" hidden>
+      <div class="error-card">
+        <div class="error-illustration">
+          <svg viewBox="0 0 48 48" width="56" height="56" fill="none" stroke="#237b4b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="24" cy="24" r="20" stroke-dasharray="3 3"/>
+            <path d="M24 14v13M24 33h.01"/>
+          </svg>
+        </div>
+        <h2 class="error-title">文档页面暂时无法打开</h2>
+        <p id="error-message" class="error-desc"></p>
+        <div class="error-actions">
+          <button id="retry" class="primary-btn">重新载入</button>
+          <button id="error-browser" class="text-btn error-outline-btn">在默认浏览器中检查 ↗</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Status Bar -->
+  <footer>
+    <div class="footer-left">
+      <span class="connection-pill">
+        <i id="connection-dot" class="dot"></i>
+        <span id="connection-text">网络已连接</span>
+      </span>
+      <span class="status-separator">|</span>
+      <span id="footer-status" class="footer-text">在线内容与飞书云端实时保持一致</span>
+    </div>
+    <div class="footer-right">
+      <span id="download" class="download-text">官方独立安全连接</span>
+      <span class="shortcut-hint">Ctrl+L 定位导航</span>
+    </div>
+  </footer>
+
+  <script type="module" src="../renderer.js"></script>
+</body>
+</html>

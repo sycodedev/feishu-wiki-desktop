@@ -1,0 +1,14 @@
+node_modules/
+.cache/
+release/
+dist/
+profile/
+*.tsbuildinfo
+.antigravity/
+.scratch/
+.vscode/
+docs/
+AGENTS.md
+GLOSSARY.md
+启动知识库原型.cmd
+release-session-check/

@@ -1,0 +1,27 @@
+{
+  "name": "feishu-wiki-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "专为知识工作者打造的飞书知识库独立桌面客户端 (Feishu Wiki Desktop Client)",
+  "type": "module",
+  "main": "dist/main.js",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "start": "node scripts/run.mjs",
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/smoke.mjs",
+    "package": "node scripts/package.mjs",
+    "setup:runtime": "node scripts/install-runtime.mjs",
+    "setup:prototype": "node scripts/install-runtime.mjs",
+    "prototype": "node scripts/run.mjs",
+    "check:prototype": "node scripts/smoke.mjs",
+    "package:prototype": "node scripts/package.mjs"
+  },
+  "devDependencies": {
+    "@electron/packager": "20.3.0",
+    "@types/node": "^24.0.0",
+    "electron": "45.1.0",
+    "typescript": "7.0.2"
+  }
+}
